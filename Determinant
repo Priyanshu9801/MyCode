@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int determinantOfMatrix(vector<vector<int>> matrix, int n)
+{
+    if (n == 1)
+        return matrix[0][0];
+    int det = 0;
+    int j = 1;
+    for (int i = 0; i < n; i++)
+    {
+        int a, b;
+        vector<vector<int>> Mat;
+        vector<int> mat;
+        for (a = 1, b = 0; a != n;)
+        {
+            if (b != i)
+                mat.push_back(matrix[a][b]);
+            b++;
+            if (b == n)
+            {
+                b = 0;
+                a++;
+                Mat.push_back(mat);
+                mat.clear();
+            }
+        }
+        det += matrix[0][i] * determinantOfMatrix(Mat, n - 1) * j;
+        j *= (-1);
+    }
+    return det;
+}
